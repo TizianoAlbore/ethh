@@ -1,0 +1,17 @@
+;File di zona per lab.local, che definisce i record A dei container.
+
+$TTL 604800
+@   IN  SOA dns.lab.local. root.lab.local. (
+        2         ; Serial
+        604800    ; Refresh
+        86400     ; Retry
+        2419200   ; Expire
+        604800 )  ; Negative Cache TTL
+
+; Definisci i nameserver
+@       IN  NS  dns.lab.local.
+
+; Record per i container
+dns     IN  A   192.168.56.4
+kali    IN  A   192.168.56.1
+owasp   IN  A   192.168.56.3
