@@ -1,9 +1,12 @@
 FROM kalilinux/kali-rolling
 
-# Aggiorna e installa il metapacchetto standard
-RUN apt-get update && \
-    apt-get install -y kali-linux-standard && \
-    apt-get clean
+# Set the frontend to noninteractive to avoid prompts during build
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Imposta una shell di default
+# Update and install the default Kali metapackage
+RUN apt update && \
+    apt full-upgrade -y && \
+    apt install -y kali-linux-default
+
+# Set default shell
 CMD ["/bin/bash"]
