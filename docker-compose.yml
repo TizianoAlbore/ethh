@@ -1,39 +1,58 @@
-version: '3.8'
-
 services:
   kali:
-    build: ./kali
+    build:
+      context: .
+      dockerfile: Dockerfile.kali
     container_name: kali
     networks:
-      lab_net:
-        ipv4_address: 192.168.56.1
+      lan1:
+        ipv4_address: 192.168.56.80
     tty: true
-    stdin_open: true
-    command: /bin/bash
+
+  ubuntu-dns:
+    build:
+      context: .
+      dockerfile: Dockerfile.dns
+    container_name: ubuntu-dns
+    networks:
+      lan1:
+        ipv4_address: 192.168.56.79
 
   owasp:
-    image: citizenstig/nowasp
+    build:
+      context: .
+      dockerfile: Dockerfile.owasp
     container_name: owasp
     networks:
-      lab_net:
-        ipv4_address: 192.168.56.3
-    ports:
-      - "80:80"
-      - "3306:3306"
+      lan1:
+        ipv4_address: 192.168.56.102
 
-  dns:
-    build: ./dns
-    container_name: dns
+  webtop:
+    image: lscr.io/linuxserver/webtop:fedora-kde
+    container_name: webtop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+      - USER=demo         # Cambia se vuoi
+      - PASSWORD=demo     # Cambia se vuoi
     networks:
-      lab_net:
-        ipv4_address: 192.168.56.4
+      lan1:
+        ipv4_address: 192.168.56.101
+    # Espone la porta 3000 (o altra) per l'interfaccia web
     ports:
-      - "53:53/udp"    # Espone il DNS in modo da poter interrogare il server
-      - "53:53/tcp"    # (Eventualmente anche TCP se necessario)
+      - 3000:3000
+    shm_size: "2gb"
+    restart: unless-stopped
+    dns:
+     - 192.168.56.79
+
 
 networks:
-  lab_net:
+  lan1:
     driver: bridge
     ipam:
       config:
         - subnet: 192.168.56.0/24
+          gateway: 192.168.56.1
+

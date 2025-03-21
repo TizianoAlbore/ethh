@@ -1,0 +1,21 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install -y bind9 dnsutils && \
+    apt-get clean
+
+# Creiamo la cartella per le zone (se non esiste)
+RUN mkdir -p /etc/bind/zones
+
+# Copia dei file di configurazione
+COPY ./dns/named.conf /etc/bind/named.conf
+COPY ./dns/named.conf.options /etc/bind/named.conf.options
+COPY ./dns/named.conf.local /etc/bind/named.conf.local
+COPY ./dns/provahacking.it /etc/bind/zones/provahacking.it
+COPY ./dns/db.192.168.56 /etc/bind/zones/db.192.168.56
+
+# (Opzionale) Se i permessi dei file di zona devono essere bind:bind
+RUN chown bind:bind /etc/bind/zones/provahacking.it /etc/bind/zones/db.192.168.56
+
+# Avvia bind9 (named) in foreground
+CMD ["/usr/sbin/named", "-g", "-4"]

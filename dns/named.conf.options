@@ -1,0 +1,21 @@
+options {
+    directory "/var/cache/bind";
+
+    // Ascolta su IPv4 (porta 53) su tutte le interfacce (nel container)
+    listen-on { any; };
+    listen-on-v6 { none; };
+
+    // Consenti query da chiunque (oppure restringi se necessario)
+    allow-query { any; };
+
+    // Abilita la recursion (se vuoi che questo DNS risolva anche nomi esterni)
+    recursion yes;
+
+    // Forwarders (DNS esterni per le query che non conosciamo)
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+};
+
+// Se vuoi, puoi aggiungere altre direttive qui o in 'view' specifiche

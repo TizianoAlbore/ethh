@@ -1,0 +1,17 @@
+$TTL 86400
+@   IN  SOA ns1.provahacking.it. admin.provahacking.it. (
+        2023031801
+        3600
+        1800
+        604800
+        86400
+)
+
+; Nameserver
+@       IN  NS   ns1.provahacking.it.
+
+; PTR record: 79 -> ns1.provahacking.it
+79      IN  PTR  ns1.provahacking.it.
+
+; (Opzionale) PTR record: 79 -> www.provahacking.it
+79      IN  PTR  www.provahacking.it.

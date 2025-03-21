@@ -1,0 +1,3 @@
+FROM citizenstig/nowasp:latest
+
+# Se vuoi aggiungere personalizzazioni o file di config, puoi farlo qui

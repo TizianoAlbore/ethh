@@ -1,0 +1,11 @@
+FROM kalilinux/kali-rolling:latest
+
+# Imposta la variabile d'ambiente per evitare prompt interattivi
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y kali-linux-default && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["/bin/bash"]

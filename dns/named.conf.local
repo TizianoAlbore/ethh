@@ -1,0 +1,9 @@
+zone "provahacking.it" {
+    type master;
+    file "/etc/bind/zones/provahacking.it";
+};
+
+zone "56.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.192.168.56";
+};
