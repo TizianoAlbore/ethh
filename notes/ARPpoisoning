@@ -1,0 +1,9 @@
+Command that changes from the official guide
+
+from fedora: ip neig (instead of arp -a from windows)
+
+from kali: 
+- Keep env var and launch ettercap (remember -E flag after sudo)
+sudo -E ettercap -G
+
+

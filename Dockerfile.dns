@@ -1,21 +1,29 @@
 FROM ubuntu:latest
 
+# Evitiamo prompt interattivi
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get install -y bind9 dnsutils && \
-    apt-get clean
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Creiamo la cartella per le zone (se non esiste)
 RUN mkdir -p /etc/bind/zones
 
-# Copia dei file di configurazione
+# Copia dei file di configurazione nel container
 COPY ./dns/named.conf /etc/bind/named.conf
 COPY ./dns/named.conf.options /etc/bind/named.conf.options
 COPY ./dns/named.conf.local /etc/bind/named.conf.local
 COPY ./dns/provahacking.it /etc/bind/zones/provahacking.it
 COPY ./dns/db.192.168.56 /etc/bind/zones/db.192.168.56
 
-# (Opzionale) Se i permessi dei file di zona devono essere bind:bind
+# Facoltativo: modifica permessi (se necessario)
 RUN chown bind:bind /etc/bind/zones/provahacking.it /etc/bind/zones/db.192.168.56
+
+# Espone la porta 53 (DNS)
+EXPOSE 53/udp
+EXPOSE 53/tcp
 
 # Avvia bind9 (named) in foreground
 CMD ["/usr/sbin/named", "-g", "-4"]

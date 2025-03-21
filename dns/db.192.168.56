@@ -1,17 +1,27 @@
-$TTL 86400
-@   IN  SOA ns1.provahacking.it. admin.provahacking.it. (
-        2023031801
-        3600
-        1800
-        604800
-        86400
+$TTL 3000
+@   IN  SOA dns.provahacking.it. dns2.provahacking.it. (
+        2016072701 ; serial
+        3600       ; refresh
+        600        ; retry
+        604800     ; expire
+        1800       ; minimum
 )
 
-; Nameserver
-@       IN  NS   ns1.provahacking.it.
+; Authoritative nameservers
+@   IN NS dns.provahacking.it.
+@   IN NS dns2.provahacking.it.
 
-; PTR record: 79 -> ns1.provahacking.it
-79      IN  PTR  ns1.provahacking.it.
+; Reverse record per .79
+79  IN PTR dns.provahacking.it.
 
-; (Opzionale) PTR record: 79 -> www.provahacking.it
-79      IN  PTR  www.provahacking.it.
+; Esempio per .102
+102 IN PTR owasp.provahacking.it.
+
+; Esempio per .101
+101 IN PTR webtop.provahacking.it.
+
+; Esempio per .80
+80  IN PTR kali.provahacking.it.
+
+; Esempio per .3
+3   IN PTR www.provahacking.it.

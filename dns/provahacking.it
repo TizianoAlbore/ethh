@@ -1,17 +1,35 @@
-$TTL 86400
-@   IN  SOA ns1.provahacking.it. admin.provahacking.it. (
-        2023031801  ; Serial (aggiorna a ogni modifica)
-        3600        ; Refresh
-        1800        ; Retry
-        604800      ; Expire
-        86400       ; Negative Cache TTL
+$TTL 3000
+@   IN  SOA dns.provahacking.it. dns2.provahacking.it. (
+        2016072702 ; serial (incrementa ogni modifica)
+        3600       ; refresh
+        600        ; retry
+        604800     ; expire
+        1800       ; minimum
 )
 
-; Dichiarazione del Nameserver
-@       IN  NS   ns1.provahacking.it.
+; Authoritative nameservers
+@    IN NS dns.provahacking.it.
+@    IN NS dns2.provahacking.it.
 
-; Record A per ns1
-ns1     IN  A    192.168.56.79
+; A record per l’apice del dominio
+@    IN A 192.168.56.79
 
-; Esempio di record A per www
-www     IN  A    192.168.56.79
+; Puoi assegnare al DNS un IP interno .79
+dns.provahacking.it.   IN A 192.168.56.79
+
+; Se vuoi un "secondo" DNS, ad esempio su un altro IP (fittizio)
+dns2.provahacking.it.  IN A 192.168.56.10
+
+; Esempio di record A per un container OWASP su .102
+owasp.provahacking.it. IN A 192.168.56.102
+
+; Esempio per webtop su .101
+webtop.provahacking.it. IN A 192.168.56.101
+
+; Esempio per Kali su .80
+kali.provahacking.it.   IN A 192.168.56.80
+
+; Esempio di un host generico (www)
+www.provahacking.it.    IN A 192.168.56.3
+
+; Puoi aggiungere altri record se desideri
