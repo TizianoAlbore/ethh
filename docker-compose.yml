@@ -34,8 +34,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-      - USER=demo         # Cambia se vuoi
-      - PASSWORD=demo     # Cambia se vuoi
     networks:
       lan1:
         ipv4_address: 192.168.56.101
