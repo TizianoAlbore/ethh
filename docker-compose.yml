@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: Dockerfile.kali
     image: 'csalab/kalilinux-docker:latest'
-    restart: always
+    #restart: always
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -53,7 +53,7 @@ services:
     ports:
       - 3000:3000
     shm_size: "2gb"
-    restart: unless-stopped
+    #restart: unless-stopped
     dns:
      - 192.168.56.79
 
