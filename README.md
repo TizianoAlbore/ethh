@@ -17,7 +17,7 @@ Due to limitations with the Docker bridge network not allowing ARP requests, we 
    docker-compose build && docker-compose up -d
    ```
 
-2. **Set Up the Macvlan Network:**
+2. **Set Up the Macvlan Network (at every start):**
 
     To access the network (and thus the web apps), you need to create a macvlan interface on your machine. Replace eth0 with the appropriate interface for your system if necessary.
 
@@ -34,6 +34,7 @@ Due to limitations with the Docker bridge network not allowing ARP requests, we 
     # Enable promiscuous mode on your main interface (replace eth0 with your correct interface)
     sudo ip link set eth0 promisc on
     ```
+    After shutting down your computer these changes will be dropped, so this step has to be done at each startup
 
 ## Accessing the Containers
 
